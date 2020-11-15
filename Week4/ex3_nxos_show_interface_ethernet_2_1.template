@@ -1,0 +1,16 @@
+Value INT_NAME (\S+)
+Value LINE_STATUS (\S+)
+Value ADMIN_STATUS (\S+)
+Value MAC_ADDR (\S+)
+Value MTU (\d+)
+Value DUPLEX (\S+)
+Value SPEED (\d+)
+
+Start
+  ^${INT_NAME} is ${LINE_STATUS}\s*
+  ^admin state is ${ADMIN_STATUS}, .*
+  ^\s+.*address: ${MAC_ADDR}\s+\S+
+  ^\s+MTU ${MTU}\s+.*
+  ^\s+${DUPLEX}, ${SPEED} Mb/s
+
+

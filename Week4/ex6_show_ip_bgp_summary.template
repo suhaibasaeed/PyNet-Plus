@@ -1,0 +1,15 @@
+Value Filldown BGP_RID (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})
+Value Filldown LOCAL_AS (\d\d\d\d)
+Value NEIGHBOR (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})
+Value REMOTE_AS (\S+)
+Value UP_DOWN (\S+)
+Value STATE_PREFIXRCVD (\S+)
+
+Start
+  ^Identifier ${BGP_RID}.*${LOCAL_AS}\s*$$
+  ^Neighbor.*Rcd\s*$$ -> ShowBgpSumm
+
+ShowBgpSumm
+  ^${NEIGHBOR}\s+\d\s+${REMOTE_AS}\s+\S+\s+\S+\s+\S+\s+\S+\s+\S+\s+${UP_DOWN}\s+${STATE_PREFIXRCVD}\s* -> Record
+  
+EOF
