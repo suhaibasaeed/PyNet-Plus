@@ -1,0 +1,18 @@
+nxos1
+
+interface {{ interface }}
+  ip address {{ ip_address[0]}}{{ netmask }}
+
+router bgp {{ local_as }}
+  neighbor {{peer_ip[0] }} remote-as 22
+    address-family ipv4 unicast
+
+
+nxos2
+
+interface {{interface}}
+  ip address {{ ip_address[1] }}{{ netmask }}
+
+router bgp {{ local_as }}
+  neighbor {{ peer_ip[1] }} remote-as 22
+    address-family ipv4 unicast

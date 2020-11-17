@@ -1,0 +1,125 @@
+Current configuration : 10895 bytes
+!
+! Last configuration change at 09:57:08 PDT Sat Oct 24 2020 by pyclass
+! NVRAM config last updated at 04:15:43 PDT Wed Oct 21 2020 by pyclass
+!
+version 16.12
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service call-home
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+!
+hostname cisco3
+!
+boot-start-marker
+boot system flash c1100-universalk9_ias.16.12.03.SPA.bin
+boot-end-marker
+!
+!
+vrf definition test
+!
+logging buffered 10000
+no logging console
+enable secret 9 $14$CVrv$7vnZ7GejAAOq0k$KAuOFmHdpnAlqniUCSGXE2Q1p88oY5etEEt7/pyuFoM
+!
+{% include 'aaa.j2' %}
+!
+aaa session-id common
+{% include 'clock.j2' %}
+call-home
+ ! If contact email address in call-home is configured as sch-smart-licensing@cisco.com
+ ! the email address configured in Cisco Smart License Portal will be used as contact email address to send SCH notifications.
+ contact-email-addr sch-smart-licensing@cisco.com
+ profile "CiscoTAC-1"
+  active
+  destination transport-method http
+  no destination transport-method email
+!
+ip name-server 1.1.1.1 1.0.0.1
+!
+login on-success log
+!
+subscriber templating
+multilink bundle-name authenticated
+!
+crypto pki trustpoint TP-self-signed-2174981821
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2174981821
+ revocation-check none
+ rsakeypair TP-self-signed-2174981821
+!
+crypto pki trustpoint SLA-TrustPoint
+ enrollment terminal
+ revocation-check crl
+!
+!
+license udi pid C1111-4P sn FGL222290LB
+archive
+ path flash:cisco3-cfg
+memory free low-watermark processor 70550
+!
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+username test9 secret 9 $14$CQCe$BH8r2UDyqe4c0E$ZopYCeTcpUUTChQQfzUaRwwkIDoybRKRUX/YR6MLXmg
+username testuser privilege 15 secret 9 $14$A5eB$WmK3IaiKxeBqtk$/q6ZFevkX4VEXQyscbovS8Kcz8ZGUWdLX6IjSGbsFh2
+username student1 privilege 15 secret 9 $14$/gYV$ZpT.4lxPBfovOU$wtTtaGoxBdSc99Y/OEaTG4Ip.C8pYeoHnKELzuzsSNM
+username pyclass privilege 15 secret 9 $14$7t3j$LAuRnQPxL6Cv/U$fglWbgZRQp36OZnviYeiPpEsw3W6UbVn2NLI0QToSys
+!
+redundancy
+ mode none
+!
+!
+vlan internal allocation policy ascending
+!
+lldp run
+!
+interface GigabitEthernet0/0/0
+ ip address 10.220.88.22 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ shutdown
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/1/0
+!
+interface GigabitEthernet0/1/1
+!
+interface GigabitEthernet0/1/2
+!
+interface GigabitEthernet0/1/3
+!
+interface Vlan1
+ no ip address
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 10.220.88.1
+ip ssh version 2
+ip ssh pubkey-chain
+  username testuser
+   key-hash ssh-rsa E5D7E26A603DD18923113E45F29BDF22
+  username student1
+   key-hash ssh-rsa 1C3A949CF3B48F23F5074717EEEE025A
+ip scp server enable
+!
+control-plane
+!
+line con 0
+ logging synchronous
+ transport input none
+ stopbits 1
+line vty 0 4
+ exec-timeout 20 0
+ transport input telnet ssh
+!
+{%- include 'ntp.j2' %}
+!
+netconf-yang
+end

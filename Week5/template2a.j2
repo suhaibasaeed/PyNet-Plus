@@ -1,0 +1,6 @@
+nxos1
+interface {{ interface }}
+  ip address {{ ip_address[0]}}{{ netmask }}
+
+nxos2
+  interface {{ ip_address[1] }}{{ netmask }}
