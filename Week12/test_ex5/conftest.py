@@ -1,10 +1,10 @@
 from getpass import getpass
-import pytest
 from netmiko import ConnectHandler
+import pytest
 
 password = getpass()
 
-# Create Netmiko connection - Define as a fixture
+# Create Netmiko connection = Define as a fixture
 @pytest.fixture(scope="module")
 def netmiko_conn(request):  # Argument passed in
     net_connect = ConnectHandler(
@@ -21,12 +21,3 @@ def netmiko_conn(request):  # Argument passed in
     request.addfinalizer(fin)
     # Return Netmiko connection object
     return net_connect
-
-# Test function which will see if function above will return Netmiko object with correct output after find_prompt()
-def test_find_prompt(netmiko_conn):  # Pass in fixture as parameter
-    assert "arista1#" in netmiko_conn.find_prompt()
-
-# Test function which will see if the software version of the Netmiko object returned is 4.20.10M
-def test_show_version(netmiko_conn):
-    output = netmiko_conn.send_command("show version")  # Send show version command to the device
-    assert "4.20.10M" in output
