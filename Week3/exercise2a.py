@@ -1,6 +1,6 @@
 """
 2a. Create a list where each of the list elements is a dictionary representing one of the network devices in the lab.
-Do this for at least four of the lab devices. The dictionary should have keys corresponding to the device_name, host (i.e. FQDN), username, and password.
+Do this for 4 of the lab devices. Dict should have keys corresponding to the device_name, host, username & password
 Use a fictional username/password to avoid checking the lab password into GitHub.
 """
 

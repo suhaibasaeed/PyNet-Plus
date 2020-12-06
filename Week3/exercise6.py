@@ -4,7 +4,7 @@
 Use CiscoConfParse to find all of the interfaces on Cisco4 that have an IP address.
 Print out the interface name and IP address for each interface.
 Your solution should work if there is more than one IP address configured on Cisco4.
-For example, if you configure a loopback interface on Cisco4 with an IP address, then your solution should continue to work.
+For example, if you configure a loopback interface on Cisco4 with an IP address, then your solution should still to work
 The output from this program should look similar to the following:
 $ python confparse_ex6.py 
 
@@ -31,7 +31,7 @@ show_run = net_connection.send_command('show run')
 # Make running config string into a list so we can feed it into CiscoConfParse object
 cisco_obj = CiscoConfParse(show_run.splitlines())
 
-# Look for lines in runningt config where parent starts with 'interface' at beginning of line and child with whitespace then 'ip address'
+# Look for lines in config where parent starts w/ 'interface' at start of line & child w/ whitespace then 'ip address'
 match = cisco_obj.find_objects_w_child(parentspec=r'^interface', childspec=r'^\s+ip address')
 
 # Loop through list of matches and print out the interface name

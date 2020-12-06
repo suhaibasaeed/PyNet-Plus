@@ -23,7 +23,7 @@
 }
 
 From a file, read this JSON data into your Python program.
-Process this ARP data and return a dictionary where the dictionary keys are the IP addresses and the dictionary values are the MAC addresses.
+Process this ARP data and return a dictionary where the keys are the IP addresses and the values are the MAC addresses.
 Print this dictionary to standard output.
 """
 
@@ -35,7 +35,6 @@ with open('arista_arp.json') as f:
     # load the data in and put into arista_arp variable
     arista_arp = json.load(f)
 
-#pprint(arista_arp)
 # Put ipV4Neighbors info into new dict as it is only thing we need
 ipv4_info = arista_arp['ipV4Neighbors']
 

@@ -32,10 +32,10 @@ final_list = []
 
 # Loop through arp_data list, split each line again and extract mac, ip and interface
 for line in arp_data:
-    new_list = arp_data[x].split() # Split each line of output by whitespace
-    mac = new_list[3] # 4th element is mac address
-    ip = new_list[1] # 2nd element is ip
-    intf = new_list[5] # 6th element is intrface
+    new_list = arp_data[x].split()  # Split each line of output by whitespace
+    mac = new_list[3]  # 4th element is mac address
+    ip = new_list[1]  # 2nd element is ip
+    intf = new_list[5]  # 6th element is intrface
     x += 1 # increment counter
     
     # Create dictionary with new info extracted from arp_data list

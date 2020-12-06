@@ -35,7 +35,7 @@ cisco_obj = CiscoConfParse(configuration.splitlines())
 match = cisco_obj.find_objects_w_child(parentspec=r'^router', childspec=r'^\s+neighbor')
 # We only have one match so get rid of the list by resetting variable to element 0
 match = match[0]
-# # Search the children of each match for one that starts with whitespace then 'neighbor' 
+# Search the children of each match for one that starts with whitespace then 'neighbor'
 neighbor = match.re_search_children(r'^\s+neighbor')
 # Initialise empty list where tuples will be added to in the end
 my_list = []
@@ -47,7 +47,7 @@ for line in neighbor:
     bgp_neighbour = line.text.split()[1] # We want text only, split this to get 2nd element only
     # Search children of each match for one that starts with whitespace then 'remote-as'
     as_no = line.re_search_children(r'^\s+remote-as')
-    # Loop through list of children and extract neighbor as only
+    # Loop through list of children and extract neighbor AS no only
     for asn in as_no:
         as_number = asn.text.split()[1] # We want text only, split this to get 2nd element only
         # Create a tuple with the extracted bgp neighbour ip and it's as no
