@@ -45,4 +45,3 @@ if __name__ == '__main__':
     # Record end time and prind
     end_time = datetime.now()
     print('Total time taken for execution is: {}'.format(end_time - start_time))
-    
