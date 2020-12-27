@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
     # Use the HTTP-GET operation - pass in URL, HTTP headers & don't check SSL cert
     response = requests.get(url, headers=http_headers, verify=False)
-    #Get JSON payload from the response and conviert into python data structure
+    # Get JSON payload from the response and convert into python data structure
     response = response.json()
     
     # Get list of dictionaries with device details in them
